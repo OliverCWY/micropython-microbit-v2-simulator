@@ -239,6 +239,7 @@ export class Board {
     this.notifications.onReady(this.getState());
   }
 
+  // Required feature for Oxford student group
   setDisplay(display: boolean) {
     this.svg.style.display=display?"":"none"
   }
@@ -820,6 +821,8 @@ export const createMessageListener = (board: Board) => (e: MessageEvent) => {
         board.setValue(id, value);
         break;
       }
+
+      // Required feature for Oxford student group
       case "set_display": {
         console.log(data)
         board.setDisplay(data.display);
