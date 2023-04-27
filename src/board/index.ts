@@ -52,7 +52,7 @@ enum StopKind {
    * An internal mode where we do not display the stop state UI as we plan to immediately reset.
    * Used for user-requested flash or reset.
    */
-  BriefStop = "brief",
+  BriefStop = "brief", 
   /**
    * The user requested the program be interrupted.
    *
@@ -237,6 +237,10 @@ export class Board {
 
     this.updateTranslationsInternal();
     this.notifications.onReady(this.getState());
+  }
+
+  setDisplay(display: boolean) {
+    this.svg.style.display=display?"":"none"
   }
 
   private async createModule(): Promise<ModuleWrapper> {
@@ -814,6 +818,11 @@ export const createMessageListener = (board: Board) => (e: MessageEvent) => {
           throw new Error(`Invalid id field type: ${id}`);
         }
         board.setValue(id, value);
+        break;
+      }
+      case "set_display": {
+        console.log(data)
+        board.setDisplay(data.display);
         break;
       }
     }
